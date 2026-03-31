@@ -20,7 +20,7 @@ export default function ComparisonPage() {
     // Parse tool IDs from URL
     const toolIds = searchParams.get('tools')?.split(',') || [];
     if (toolIds.length > 0) {
-      const comparisonData = toolIds
+      const comparisonData: ComparisonData[] = toolIds
         .map((id) => {
           const tool = tools.find((t) => t.id === id);
           if (!tool) return null;
