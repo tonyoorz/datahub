@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import ToolComparison from '@/components/dashboard/ToolComparison';
@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 import { Award, Plus } from 'lucide-react';
 import Link from 'next/link';
 
-export default function ComparisonPage() {
+function ComparisonPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedTools, setSelectedTools] = useState<ComparisonData[]>([]);
@@ -20,29 +20,28 @@ export default function ComparisonPage() {
     // Parse tool IDs from URL
     const toolIds = searchParams.get('tools')?.split(',') || [];
     if (toolIds.length > 0) {
-      const comparisonData: ComparisonData[] = toolIds
-        .map((id) => {
-          const tool = tools.find((t) => t.id === id);
-          if (!tool) return null;
+      const comparisonData = toolIds.reduce<ComparisonData[]>((acc, id) => {
+        const tool = tools.find((t) => t.id === id);
+        if (!tool) return acc;
 
-          // Generate comparison metrics
-          return {
-            toolId: tool.id,
-            toolName: tool.name,
-            icon: tool.icon,
-            metrics: {
-              rating: tool.rating,
-              community: tool.githubStars
-                ? Math.min(100, parseInt(tool.githubStars.replace(/[^0-9]/g, '')) / 1000)
-                : 50,
-              learning: tool.category === 'visualization' ? 70 : tool.category === 'bi' ? 40 : 60,
-              features: tool.features.length * 10,
-              performance: tool.category === 'crawler' ? 90 : 75,
-              documentation: tool.rating >= 4.5 ? 90 : 70,
-            },
-          };
-        })
-        .filter((t): t is ComparisonData => t !== null);
+        acc.push({
+          toolId: tool.id,
+          toolName: tool.name,
+          icon: tool.icon,
+          metrics: {
+            rating: tool.rating,
+            community: tool.githubStars
+              ? Math.min(100, parseInt(tool.githubStars.replace(/[^0-9]/g, '')) / 1000)
+              : 50,
+            learning: tool.category === 'visualization' ? 70 : tool.category === 'bi' ? 40 : 60,
+            features: tool.features.length * 10,
+            performance: tool.category === 'crawler' ? 90 : 75,
+            documentation: tool.rating >= 4.5 ? 90 : 70,
+          },
+        });
+
+        return acc;
+      }, []);
 
       setSelectedTools(comparisonData);
     }
@@ -191,5 +190,13 @@ export default function ComparisonPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function ComparisonPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gradient-to-b from-slate-50 to-white" />}>
+      <ComparisonPageContent />
+    </Suspense>
   );
 }

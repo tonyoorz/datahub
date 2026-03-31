@@ -135,7 +135,10 @@ export default function TrendChart({
                 boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
               }}
               labelStyle={{ color: '#1e293b', fontWeight: 600 }}
-              formatter={(value: number) => [formatNumber(value), 'Stars']}
+              formatter={(value) => {
+                const numericValue = typeof value === 'number' ? value : Number(value ?? 0);
+                return [formatNumber(numericValue), 'Stars'];
+              }}
             />
             <Legend
               wrapperStyle={{ paddingTop: '20px' }}
@@ -175,7 +178,10 @@ export default function TrendChart({
                 boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
               }}
               labelStyle={{ color: '#1e293b', fontWeight: 600 }}
-              formatter={(value: number) => [formatNumber(value), 'Stars']}
+              formatter={(value) => {
+                const numericValue = typeof value === 'number' ? value : Number(value ?? 0);
+                return [formatNumber(numericValue), 'Stars'];
+              }}
             />
             <Legend
               wrapperStyle={{ paddingTop: '20px' }}

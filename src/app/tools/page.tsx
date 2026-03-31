@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { Suspense, useMemo, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import ToolCard from '@/components/ToolCard';
 import { tools, categories } from '@/data/tools';
 import { Search, SlidersHorizontal, X, LayoutGrid, List } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 
-export default function ToolsPage() {
+function ToolsPageContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get('category');
 
@@ -175,6 +175,14 @@ export default function ToolsPage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+export default function ToolsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gradient-to-b from-slate-50 to-white" />}>
+      <ToolsPageContent />
+    </Suspense>
   );
 }
 

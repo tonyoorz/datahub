@@ -126,6 +126,7 @@ export interface FilterOptions {
   minRating?: number;
   pricing?: 'free' | 'paid' | 'freemium';
   tags?: string[];
+  search?: string;
 }
 
 export interface SortOptions {
@@ -150,7 +151,7 @@ export const CACHE_CONFIG = {
 
 // Animation variants
 export interface AnimationVariants {
-  initial: any;
+  initial?: any;
   animate: any;
   exit?: any;
 }

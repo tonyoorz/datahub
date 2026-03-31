@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, HTMLMotionProps } from 'framer-motion';
+import { motion, HTMLMotionProps, Variants } from 'framer-motion';
 import { fadeInUp, staggerContainer, scaleIn } from '@/types';
 import { cn } from '@/lib/utils';
 
@@ -8,15 +8,15 @@ interface AnimatedWrapperProps extends HTMLMotionProps<'div'> {
   variant?: 'fadeInUp' | 'scaleIn' | 'stagger' | 'none';
   delay?: number;
   duration?: number;
-  viewport?: boolean;
+  useViewport?: boolean;
 }
 
 const MotionDiv = motion.div;
 
-const variants = {
-  fadeInUp,
-  scaleIn,
-  stagger: staggerContainer,
+const variants: Record<'fadeInUp' | 'scaleIn' | 'stagger' | 'none', Variants> = {
+  fadeInUp: fadeInUp as unknown as Variants,
+  scaleIn: scaleIn as unknown as Variants,
+  stagger: staggerContainer as unknown as Variants,
   none: {
     initial: {},
     animate: {},
@@ -28,7 +28,7 @@ export default function AnimatedWrapper({
   variant = 'fadeInUp',
   delay = 0,
   duration = 0.5,
-  viewport = true,
+  useViewport = true,
   className,
   ...props
 }: AnimatedWrapperProps) {
@@ -39,7 +39,7 @@ export default function AnimatedWrapper({
       initial="initial"
       whileInView="animate"
       exit="exit"
-      viewport={viewport ? { once: true, margin: '-100px' } : false}
+      viewport={useViewport ? { once: true, margin: '-100px' } : undefined}
       variants={variant === 'stagger' ? selectedVariant : undefined}
       animate={variant !== 'stagger' ? 'animate' : undefined}
       transition={{

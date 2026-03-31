@@ -23,9 +23,10 @@ export default function TrendsPage() {
         if (res.ok) {
           const data = await res.json();
           setTrends(data.data || []);
-          if (selectedTools.length === 0 && data.data?.length > 0) {
-            setSelectedTools(data.data.slice(0, 3).map((t: TrendData) => t.toolId));
-          }
+          setSelectedTools((prev) => {
+            if (prev.length > 0 || !data.data?.length) return prev;
+            return data.data.slice(0, 3).map((t: TrendData) => t.toolId);
+          });
         }
       } catch (error) {
         console.error('Error fetching trends:', error);

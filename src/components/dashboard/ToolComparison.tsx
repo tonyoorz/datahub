@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 interface ToolComparisonProps {
   tools: ComparisonData[];
-  metrics: ComparisonMetric[];
+  metrics?: ComparisonMetric[];
   onRemove?: (toolId: string) => void;
 }
 
@@ -160,7 +160,10 @@ export default function ToolComparison({
                   borderRadius: '12px',
                   boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                 }}
-                formatter={(value: number) => [`${value.toFixed(0)}%`, '得分']}
+                formatter={(value) => {
+                  const numericValue = typeof value === 'number' ? value : Number(value ?? 0);
+                  return [`${numericValue.toFixed(0)}%`, '得分'];
+                }}
               />
             </RadarChart>
           </ResponsiveContainer>

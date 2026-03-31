@@ -75,7 +75,7 @@ export default function CategoryDistribution({
               cy="50%"
               labelLine={false}
               label={({ name, percent }) =>
-                `${name} ${(percent * 100).toFixed(0)}%`
+                `${name} ${((percent ?? 0) * 100).toFixed(0)}%`
               }
               outerRadius={type === 'donut' ? 100 : 120}
               innerRadius={type === 'donut' ? 60 : 0}
@@ -98,10 +98,13 @@ export default function CategoryDistribution({
                 borderRadius: '12px',
                 boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
               }}
-              formatter={(value: number, name: string) => [
-                `${value} 个工具 (${((value / total) * 100).toFixed(1)}%)`,
-                name,
-              ]}
+              formatter={(value, name) => {
+                const numericValue = typeof value === 'number' ? value : Number(value ?? 0);
+                return [
+                  `${numericValue} 个工具 (${((numericValue / total) * 100).toFixed(1)}%)`,
+                  String(name ?? ''),
+                ];
+              }}
             />
           </PieChart>
         </ResponsiveContainer>
