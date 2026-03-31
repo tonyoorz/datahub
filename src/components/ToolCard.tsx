@@ -77,7 +77,7 @@ export default function ToolCard({ tool, index = 0 }: ToolCardProps) {
                       <TrendingUp className="h-3 w-3" />
                       {tool.githubStars}
                     </span>
-                  )}
+                  ) : null}
                 </div>
               </div>
             </div>
