@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
         tools: filteredTools,
         total: filteredTools.length,
       },
-    } as ApiResponse<Tool>);
+    } as ApiResponse<{ tools: Tool[]; total: number }>);
   } catch (error) {
     console.error('Error in tools API:', error);
     return NextResponse.json(
