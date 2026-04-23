@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
+import SiteFooter from '@/components/SiteFooter';
 import RealTimeStats from '@/components/dashboard/RealTimeStats';
 import CategoryDistribution from '@/components/dashboard/CategoryDistribution';
 import TrendChart from '@/components/dashboard/TrendChart';
@@ -9,7 +10,7 @@ import ToolCard from '@/components/ToolCard';
 import { tools } from '@/data/tools';
 import { DashboardStats, CategoryStats, TrendData } from '@/types';
 import { motion } from 'framer-motion';
-import { BarChart3, TrendingUp, Award, Zap } from 'lucide-react';
+import { BarChart3, TrendingUp, Award, Zap, ArrowRight, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 
 export default function DashboardPage() {
@@ -83,27 +84,63 @@ export default function DashboardPage() {
   const MotionDiv = motion.div;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
       <Navbar />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         {/* Header */}
         <MotionDiv
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <div className="flex items-center gap-3 mb-2">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <BarChart3 className="h-6 w-6 text-blue-600" />
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
+            <div className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-soft lg:p-10">
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3.5 py-1.5 text-sm font-medium text-blue-700">
+                <Sparkles className="h-4 w-4" />
+                Analytics Workspace
+              </div>
+              <div className="mb-3 flex items-center gap-3">
+                <div className="rounded-2xl bg-slate-900 p-3 text-white">
+                  <BarChart3 className="h-6 w-6" />
+                </div>
+                <h1 className="text-3xl font-bold tracking-tight text-slate-950 md:text-4xl">
+                  数据仪表板
+                </h1>
+              </div>
+              <p className="max-w-3xl text-lg leading-8 text-slate-600">
+                把工具规模、分类分布、趋势变化和高评分样本集中到一页里，帮助你快速判断生态成熟度与关注重点。
+              </p>
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/dashboard/comparison"
+                  className="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-6 py-3.5 font-medium text-white transition-all hover:-translate-y-0.5 hover:bg-blue-600"
+                >
+                  打开对比面板
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+                <Link
+                  href="/dashboard/trends"
+                  className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 py-3.5 font-medium text-slate-700 transition-all hover:border-slate-300 hover:bg-slate-50"
+                >
+                  查看趋势分析
+                </Link>
+              </div>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900">
-              数据仪表板
-            </h1>
+            <div className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-soft">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Overview</p>
+              <div className="mt-5 space-y-4">
+                <div className="rounded-2xl bg-slate-50 p-4">
+                  <p className="text-sm font-medium text-slate-900">当前覆盖</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">涵盖 {tools.length} 个工具，覆盖 BI、可视化和数据采集三类核心场景。</p>
+                </div>
+                <div className="rounded-2xl bg-slate-50 p-4">
+                  <p className="text-sm font-medium text-slate-900">推荐顺序</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">先看总览和趋势，再进入对比页判断候选，最后回详情页核查边界。</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <p className="text-slate-500 text-lg">
-            实时洞察数据工具生态趋势与表现
-          </p>
         </MotionDiv>
 
         {/* Quick Actions */}
@@ -111,11 +148,11 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8"
+          className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3"
         >
           <Link
             href="/dashboard/trends"
-            className="flex items-center gap-4 bg-white rounded-xl border border-slate-100 p-5 hover:shadow-lg hover:border-blue-200 transition-all group"
+            className="group flex items-center gap-4 rounded-[28px] border border-slate-200 bg-white p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-card"
           >
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
               <TrendingUp className="h-6 w-6" />
@@ -128,7 +165,7 @@ export default function DashboardPage() {
 
           <Link
             href="/dashboard/comparison"
-            className="flex items-center gap-4 bg-white rounded-xl border border-slate-100 p-5 hover:shadow-lg hover:border-purple-200 transition-all group"
+            className="group flex items-center gap-4 rounded-[28px] border border-slate-200 bg-white p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:border-purple-200 hover:shadow-card"
           >
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
               <Award className="h-6 w-6" />
@@ -141,7 +178,7 @@ export default function DashboardPage() {
 
           <Link
             href="/tools"
-            className="flex items-center gap-4 bg-white rounded-xl border border-slate-100 p-5 hover:shadow-lg hover:border-emerald-200 transition-all group"
+            className="group flex items-center gap-4 rounded-[28px] border border-slate-200 bg-white p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:border-emerald-200 hover:shadow-card"
           >
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
               <Zap className="h-6 w-6" />
@@ -206,14 +243,7 @@ export default function DashboardPage() {
         </MotionDiv>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-white py-10 px-4 mt-16">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-slate-500 text-sm">
-            &copy; {new Date().getFullYear()} DataHub 数据工具库. 数据实时更新.
-          </p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

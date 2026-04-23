@@ -1,28 +1,7 @@
 import { Octokit } from '@octokit/rest';
 import { GitHubStats } from '@/types';
 import { formatNumber } from '@/lib/utils';
-
-// GitHub repository mapping for tools
-export const GITHUB_REPOS: Record<string, string> = {
-  // Visualization tools
-  d3js: 'd3/d3',
-  echarts: 'apache/echarts',
-  chartjs: 'chartjs/Chart.js',
-  apexcharts: 'apexcharts/apexcharts',
-  recharts: 'recharts/recharts',
-  highcharts: 'highcharts/highcharts',
-
-  // Crawler tools
-  scrapy: 'scrapy/scrapy',
-  puppeteer: 'puppeteer/puppeteer',
-  playwright: 'microsoft/playwright',
-  selenium: 'SeleniumHQ/selenium',
-
-  // BI tools (open source)
-  metabase: 'metabase/metabase',
-  superset: 'apache/superset',
-  redash: 'getredash/redash',
-};
+import { GITHUB_REPOS } from '@/lib/githubRepos';
 
 /**
  * Initialize GitHub Octokit client

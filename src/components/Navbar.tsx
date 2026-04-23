@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Database, Menu, X, BarChart3 } from 'lucide-react';
+import { Database, Menu, X, BarChart3, Sparkles } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
@@ -22,6 +22,7 @@ export default function Navbar() {
   const navItems = [
     { href: '/', label: '首页' },
     { href: '/tools', label: '工具库' },
+    { href: '/methodology', label: '评测方法' },
     { href: '/tools?category=bi', label: 'BI 工具' },
     { href: '/tools?category=visualization', label: '可视化' },
     { href: '/tools?category=crawler', label: '数据采集' },
@@ -43,28 +44,33 @@ export default function Navbar() {
       animate={{ y: 0 }}
       className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/80 backdrop-blur-lg border-b border-slate-200/60 shadow-soft'
-          : 'bg-white/60 backdrop-blur-md border-b border-slate-100/50'
+          ? 'border-b border-slate-200/60 bg-white/80 shadow-soft backdrop-blur-xl'
+          : 'border-b border-slate-100/60 bg-white/70 backdrop-blur-lg'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-[72px] items-center justify-between gap-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2.5 group">
+          <Link href="/" className="group flex items-center gap-3">
             <MotionDiv
-              className="bg-gradient-to-br from-blue-600 to-indigo-600 p-1.5 rounded-lg shadow-sm group-hover:shadow-md transition-shadow"
+              className="rounded-2xl border border-slate-200/70 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-700 p-2 text-white shadow-sm transition-shadow group-hover:shadow-md"
               whileHover={{ rotate: 5 }}
               transition={{ duration: 0.2 }}
             >
               <Database className="h-5 w-5 text-white" />
             </MotionDiv>
-            <span className="text-xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent">
-              DataHub
-            </span>
+            <div>
+              <span className="bg-gradient-to-r from-slate-950 to-slate-600 bg-clip-text text-xl font-bold text-transparent">
+                DataHub
+              </span>
+              <p className="hidden text-[11px] font-medium uppercase tracking-[0.18em] text-slate-400 sm:block">
+                Data Tool Intelligence
+              </p>
+            </div>
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden md:flex items-center gap-1 rounded-full border border-slate-200/80 bg-white/80 p-1 shadow-sm">
             {navItems.map((item, index) => (
               <MotionDiv
                 key={item.href}
@@ -74,17 +80,17 @@ export default function Navbar() {
               >
                 <Link
                   href={item.href}
-                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-all relative ${
+                  className={`relative rounded-full px-4 py-2 text-sm font-medium transition-all ${
                     isActive(item.href)
-                      ? 'text-blue-600 bg-blue-50'
-                      : 'text-slate-600 hover:text-blue-600 hover:bg-blue-50'
+                      ? 'bg-slate-900 text-white'
+                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
                   }`}
                 >
                   {item.label}
                   {isActive(item.href) && (
                     <MotionDiv
                       layoutId="activeNav"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600"
+                      className="absolute inset-0 -z-10 rounded-full bg-slate-900"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -102,8 +108,9 @@ export default function Navbar() {
           >
             <Link
               href="/dashboard"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:shadow-lg hover:scale-105 transition-all"
+              className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-lg"
             >
+              <Sparkles className="h-3.5 w-3.5" />
               <BarChart3 className="h-4 w-4" />
               仪表板
             </Link>
@@ -111,7 +118,7 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <MotionButton
-            className="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
+            className="rounded-2xl border border-slate-200 bg-white p-2.5 transition-colors hover:bg-slate-50 md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
             whileTap={{ scale: 0.95 }}
@@ -150,9 +157,14 @@ export default function Navbar() {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden overflow-hidden"
+              className="overflow-hidden md:hidden"
             >
-              <div className="pb-4 space-y-1">
+              <div className="mb-4 rounded-3xl border border-slate-200 bg-white p-3 shadow-soft">
+                <div className="mb-2 border-b border-slate-100 px-2 pb-3">
+                  <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
+                    Navigation
+                  </p>
+                </div>
                 {navItems.map((item, index) => (
                   <MotionDiv
                     key={item.href}
@@ -163,16 +175,24 @@ export default function Navbar() {
                     <Link
                       href={item.href}
                       onClick={() => setMobileOpen(false)}
-                      className={`block px-4 py-2.5 text-sm font-medium rounded-lg transition-all ${
+                      className={`block rounded-2xl px-4 py-3 text-sm font-medium transition-all ${
                         isActive(item.href)
-                          ? 'bg-blue-50 text-blue-600'
-                          : 'text-slate-700 hover:bg-blue-50 hover:text-blue-600'
+                          ? 'bg-slate-900 text-white'
+                          : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
                       }`}
                     >
                       {item.label}
                     </Link>
                   </MotionDiv>
                 ))}
+                <Link
+                  href="/dashboard"
+                  onClick={() => setMobileOpen(false)}
+                  className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 px-4 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                >
+                  <BarChart3 className="h-4 w-4" />
+                  打开仪表板
+                </Link>
               </div>
             </MotionDiv>
           )}

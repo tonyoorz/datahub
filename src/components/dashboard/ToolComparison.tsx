@@ -55,7 +55,7 @@ export default function ToolComparison({
       <MotionDiv
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="bg-white rounded-2xl border border-dashed border-slate-200 p-12 text-center"
+        className="rounded-[32px] border border-dashed border-slate-200 bg-white p-12 text-center shadow-soft"
       >
         <p className="text-slate-400">选择工具进行对比</p>
       </MotionDiv>
@@ -66,7 +66,7 @@ export default function ToolComparison({
     <MotionDiv
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm"
+      className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-soft"
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
@@ -91,14 +91,14 @@ export default function ToolComparison({
             {onRemove && (
               <button
                 onClick={() => onRemove(tool.toolId)}
-                className="absolute -top-2 -right-2 p-1 bg-red-100 text-red-600 rounded-full hover:bg-red-200 transition-colors"
+                className="absolute -right-2 -top-2 rounded-full bg-red-100 p-1 text-red-600 transition-colors hover:bg-red-200"
               >
                 <X className="h-4 w-4" />
               </button>
             )}
             <div
               className={cn(
-                'p-4 rounded-xl border-2 transition-all',
+                'rounded-2xl border-2 p-4 transition-all',
                 `border-[${COLORS[index % COLORS.length]}]`
               )}
               style={{ borderColor: COLORS[index % COLORS.length] }}

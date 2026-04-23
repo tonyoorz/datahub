@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { GitHubStats } from '@/types';
+import { hasGitHubIntegration } from '@/lib/githubRepos';
 
 interface UseGitHubStatsResult {
   stats: GitHubStats | null;
@@ -16,9 +17,13 @@ export function useGitHubStats(toolId: string): UseGitHubStatsResult {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [cached, setCached] = useState(false);
+  const hasIntegration = hasGitHubIntegration(toolId);
 
   const fetchStats = useCallback(async () => {
-    if (!toolId) {
+    if (!toolId || !hasIntegration) {
+      setStats(null);
+      setCached(false);
+      setError(null);
       setLoading(false);
       return;
     }
@@ -47,7 +52,7 @@ export function useGitHubStats(toolId: string): UseGitHubStatsResult {
     } finally {
       setLoading(false);
     }
-  }, [toolId]);
+  }, [toolId, hasIntegration]);
 
   useEffect(() => {
     fetchStats();
@@ -71,7 +76,10 @@ export function useBatchGitHubStats(toolIds: string[]) {
 
   useEffect(() => {
     async function fetchAll() {
-      if (toolIds.length === 0) {
+      const validToolIds = toolIds.filter((toolId) => hasGitHubIntegration(toolId));
+
+      if (validToolIds.length === 0) {
+        setStatsMap(new Map());
         setLoading(false);
         return;
       }
@@ -80,7 +88,7 @@ export function useBatchGitHubStats(toolIds: string[]) {
       const map = new Map<string, GitHubStats>();
 
       await Promise.all(
-        toolIds.map(async (toolId) => {
+        validToolIds.map(async (toolId) => {
           try {
             const res = await fetch(`/api/github?toolId=${toolId}`);
             if (res.ok) {

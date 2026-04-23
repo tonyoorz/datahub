@@ -58,7 +58,7 @@ export default function CategoryDistribution({
     <MotionDiv
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm"
+      className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-soft"
     >
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-slate-900">分类分布</h3>

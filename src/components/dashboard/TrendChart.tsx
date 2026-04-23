@@ -59,7 +59,7 @@ export default function TrendChart({
     <MotionDiv
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm"
+      className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-soft"
     >
       <div className="flex items-center justify-between mb-6">
         <div>

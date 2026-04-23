@@ -65,7 +65,7 @@ export default function RealTimeStats({ stats, loading }: RealTimeStatsProps) {
         {STATS_CONFIG.map((config, index) => (
           <div
             key={config.key}
-            className="bg-white rounded-xl border border-slate-100 p-6 animate-pulse"
+            className="animate-pulse rounded-[28px] border border-slate-200 bg-white p-6 shadow-soft"
           >
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-lg bg-slate-100" />
@@ -90,7 +90,7 @@ export default function RealTimeStats({ stats, loading }: RealTimeStatsProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="bg-white rounded-xl border border-slate-100 p-6 hover:shadow-lg transition-shadow group"
+            className="group rounded-[28px] border border-slate-200 bg-white p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-card"
           >
             <div className="flex items-center justify-between mb-4">
               <div className={`w-10 h-10 rounded-lg ${config.bgColor} flex items-center justify-center group-hover:scale-110 transition-transform`}>
