@@ -44,7 +44,7 @@ export default function ToolCard({ tool, index = 0 }: ToolCardProps) {
       className="group animate-fade-in-up"
       style={{ animationDelay: `${index * 50}ms` }}
     >
-      <div className="flex h-full flex-col overflow-hidden rounded-[28px] border border-slate-200/80 bg-gradient-to-b from-white via-white to-slate-50/80 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-card-hover">
+      <div className="interactive-panel panel-elevated flex h-full flex-col overflow-hidden bg-gradient-to-b from-white via-white to-slate-50/80 duration-300">
         <div
           className={`h-1 bg-gradient-to-r ${categoryGradients[tool.category]} scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100`}
         />

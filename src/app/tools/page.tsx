@@ -75,15 +75,15 @@ function ToolsPageContent() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
+    <div className="page-shell">
       <Navbar />
 
       <section className="relative overflow-hidden border-b border-slate-200/70 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.18),transparent_28%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)]">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.04)_1px,transparent_1px)] bg-[size:30px_30px] opacity-40" />
+        <div className="hero-grid absolute inset-0 opacity-40" />
         <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
             <div>
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50/70 px-3.5 py-1.5 text-sm font-medium text-blue-700">
+              <div className="brand-kicker mb-5">
                 <Sparkles className="h-4 w-4" />
                 Curated Data Tool Directory
               </div>
@@ -94,22 +94,16 @@ function ToolsPageContent() {
                 把工具搜索、分类筛选、对比入口和方法论放在一页里，帮助你更快从候选集合收敛到可执行方案。
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/dashboard/comparison"
-                  className="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-6 py-3.5 font-medium text-white transition-all hover:-translate-y-0.5 hover:bg-blue-600"
-                >
+                <Link href="/dashboard/comparison" className="btn-primary">
                   进入对比面板
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
-                <Link
-                  href="/methodology"
-                  className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 py-3.5 font-medium text-slate-700 transition-all hover:border-slate-300 hover:bg-slate-50"
-                >
+                <Link href="/methodology" className="btn-secondary">
                   查看评分方法与口径
                 </Link>
               </div>
             </div>
-            <div className="rounded-[28px] border border-slate-200 bg-white/90 p-5 shadow-soft backdrop-blur">
+            <div className="panel-frosted p-5">
               <div className="flex items-center gap-3">
                 <div className="rounded-2xl bg-slate-900 p-2.5 text-white">
                   <BookCheck className="h-5 w-5" />
@@ -141,7 +135,7 @@ function ToolsPageContent() {
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="mb-8 grid gap-4 md:grid-cols-3">
           {statsCards.map((item) => (
-            <div key={item.label} className="rounded-3xl border border-slate-200 bg-white px-5 py-4 shadow-soft">
+            <div key={item.label} className="panel-elevated rounded-3xl px-5 py-4">
               <p className="text-sm font-medium text-slate-500">{item.label}</p>
               <p className="mt-2 text-2xl font-semibold text-slate-950">{item.value}</p>
               <p className="mt-1 text-sm text-slate-500">{item.hint}</p>
@@ -150,7 +144,7 @@ function ToolsPageContent() {
         </div>
 
         {/* Search & Controls */}
-        <div className="mb-8 rounded-[28px] border border-slate-200 bg-white p-5 shadow-soft md:p-6">
+        <div className="panel-elevated mb-8 p-5 md:p-6">
           <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-sm font-medium text-slate-900">筛选与排序</p>
@@ -249,7 +243,7 @@ function ToolsPageContent() {
         </div>
 
         <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-          <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-soft">
+          <div className="panel-elevated rounded-3xl p-5">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">推荐对比</p>
             {internalLinks.compare.length > 0 ? (
               internalLinks.compare.map((item) => (
@@ -262,7 +256,7 @@ function ToolsPageContent() {
               <p className="text-sm text-slate-400">筛选后工具不足，无法生成对比。</p>
             )}
           </div>
-          <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-soft">
+          <div className="panel-elevated rounded-3xl p-5">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">替代方案</p>
             <div className="space-y-1.5">
               {internalLinks.alternatives.map((item) => (
@@ -273,7 +267,7 @@ function ToolsPageContent() {
               ))}
             </div>
           </div>
-          <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-soft">
+          <div className="panel-elevated rounded-3xl p-5">
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">场景榜单</p>
             <div className="space-y-1.5">
               {internalLinks.best.map((item) => (
@@ -319,7 +313,7 @@ function ToolsPageContent() {
 
 export default function ToolsPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-gradient-to-b from-slate-50 to-white" />}>
+    <Suspense fallback={<div className="page-shell" />}>
       <ToolsPageContent />
     </Suspense>
   );
@@ -336,7 +330,7 @@ function ListToolCard({ tool }: { tool: any }) {
   return (
     <a
       href={`/tools/${tool.id}`}
-      className="group flex items-center gap-6 rounded-[28px] border border-slate-200 bg-white p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-card"
+      className="interactive-panel panel-elevated group flex items-center gap-6 p-5"
     >
       <div className={`w-14 h-14 rounded-xl flex items-center justify-center text-2xl shrink-0 ${
         tool.category === 'bi' ? 'bg-blue-50' :

@@ -159,7 +159,7 @@ export default function Navbar() {
               transition={{ duration: 0.3 }}
               className="overflow-hidden md:hidden"
             >
-              <div className="mb-4 rounded-3xl border border-slate-200 bg-white p-3 shadow-soft">
+              <div className="panel-elevated mb-4 rounded-3xl p-3">
                 <div className="mb-2 border-b border-slate-100 px-2 pb-3">
                   <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
                     Navigation

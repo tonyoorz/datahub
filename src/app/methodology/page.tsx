@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar';
+import SiteFooter from '@/components/SiteFooter';
 import Link from 'next/link';
-import { ArrowLeft, BookCheck, Database, Gauge, RefreshCcw, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, BookCheck, Database, Gauge, RefreshCcw, ShieldCheck, ArrowRight, Sparkles } from 'lucide-react';
 
 const dimensions = [
   { name: '功能完整度', weight: '30%', desc: '覆盖核心业务场景的能力边界、可扩展性与成熟度。' },
@@ -30,30 +31,67 @@ const principles = [
 
 export default function MethodologyPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div className="page-shell">
       <Navbar />
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <Link
-          href="/"
-          className="inline-flex items-center text-slate-500 hover:text-slate-900 transition-colors mb-6"
-        >
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          返回首页
-        </Link>
+      <section className="relative overflow-hidden border-b border-slate-200/70 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.16),transparent_28%),linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)]">
+        <div className="hero-grid absolute inset-0 opacity-40" />
+        <div className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <Link
+            href="/"
+            className="mb-6 inline-flex items-center rounded-full border border-slate-200 bg-white px-4 py-2 text-slate-500 transition-colors hover:text-slate-900"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            返回首页
+          </Link>
 
-        <div className="bg-white border border-slate-100 rounded-2xl p-8 mb-8">
-          <div className="inline-flex items-center gap-2 text-sm text-blue-700 bg-blue-50 px-3 py-1 rounded-lg mb-4">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+            <div className="panel-elevated p-8 lg:p-10">
+              <div className="brand-kicker mb-4">
+                <Sparkles className="h-4 w-4" />
+                Evaluation Framework
+              </div>
+              <h1 className="text-4xl font-bold tracking-tight text-slate-950 md:text-5xl">DataHub 评测方法</h1>
+              <p className="mt-4 max-w-3xl text-lg leading-8 text-slate-600">
+                DataHub 不追求“绝对排名”，而是提供可复核、可比较、可落地的选型参考。所有分数用于帮助你快速建立判断框架，
+                最终选择应结合团队目标、数据规模与实施条件。
+              </p>
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <Link href="/tools" className="btn-primary">
+                  浏览工具库
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+                <Link href="/dashboard/comparison" className="btn-secondary">
+                  打开对比面板
+                </Link>
+              </div>
+            </div>
+
+            <div className="panel-frosted p-5">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Trust Signals</p>
+              <div className="mt-5 space-y-4">
+                <div className="panel-muted p-4">
+                  <p className="text-sm font-medium text-slate-900">评分目的</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">帮助团队快速收敛方向，而不是替代真实测试与 PoC。</p>
+                </div>
+                <div className="panel-muted p-4">
+                  <p className="text-sm font-medium text-slate-900">核心原则</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">公开口径、一致权重、可复核来源、持续更新。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+        <div className="panel-elevated mb-8 p-8">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-xl bg-blue-50 px-3 py-1 text-sm text-blue-700">
             <BookCheck className="h-4 w-4" />
             评分方法公开透明
           </div>
-          <h1 className="text-3xl font-bold text-slate-900 mb-4">DataHub 评测方法</h1>
-          <p className="text-slate-600 leading-relaxed">
-            DataHub 不追求“绝对排名”，而是提供可复核、可比较、可落地的选型参考。所有分数用于帮助你快速建立判断框架，
-            最终选择应结合团队目标、数据规模与实施条件。
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {principles.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+              <div key={title} className="panel-muted p-4">
                 <Icon className="h-5 w-5 text-slate-700 mb-2" />
                 <p className="text-sm font-semibold text-slate-900 mb-1">{title}</p>
                 <p className="text-sm text-slate-600">{desc}</p>
@@ -62,11 +100,11 @@ export default function MethodologyPage() {
           </div>
         </div>
 
-        <div className="bg-white border border-slate-100 rounded-2xl p-8 mb-8">
+        <div className="panel-elevated mb-8 p-8">
           <h2 className="text-xl font-semibold text-slate-900 mb-5">评分维度与权重</h2>
           <div className="space-y-4">
             {dimensions.map((item) => (
-              <div key={item.name} className="rounded-xl border border-slate-100 p-4">
+              <div key={item.name} className="panel-muted p-4">
                 <div className="flex items-center justify-between mb-2">
                   <p className="font-medium text-slate-900">{item.name}</p>
                   <span className="text-sm text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md">{item.weight}</span>
@@ -77,7 +115,7 @@ export default function MethodologyPage() {
           </div>
         </div>
 
-        <div className="bg-white border border-slate-100 rounded-2xl p-8">
+        <div className="panel-elevated p-8">
           <div className="flex items-center gap-2 mb-3">
             <Gauge className="h-5 w-5 text-slate-700" />
             <h2 className="text-xl font-semibold text-slate-900">口径说明</h2>
@@ -91,6 +129,7 @@ export default function MethodologyPage() {
           <p className="text-xs text-slate-400 mt-5">最近更新：2026-03-31</p>
         </div>
       </div>
+      <SiteFooter />
     </div>
   );
 }

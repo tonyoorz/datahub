@@ -10,12 +10,13 @@ export default function SiteFooter() {
   const crawlerCount = tools.filter(tool => tool.category === 'crawler').length;
 
   return (
-    <footer className="mt-16 bg-slate-950 px-4 py-14 text-white">
+    <footer className="relative mt-16 overflow-hidden bg-slate-950 px-4 py-14 text-white">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.16),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(148,163,184,0.14),transparent_24%)]" />
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 md:grid-cols-[minmax(0,1.25fr)_repeat(2,minmax(0,220px))]">
+        <div className="relative grid gap-10 md:grid-cols-[minmax(0,1.25fr)_repeat(2,minmax(0,220px))]">
           <div>
             <div className="flex items-center gap-3">
-              <div className="rounded-2xl bg-blue-600 p-2 text-white">
+              <div className="rounded-2xl border border-white/10 bg-blue-600/90 p-2 text-white shadow-lg shadow-blue-950/30">
                 <Sparkles className="h-5 w-5" />
               </div>
               <div>
@@ -49,7 +50,7 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-slate-800 pt-6 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
+        <div className="relative mt-10 flex flex-col gap-3 border-t border-slate-800 pt-6 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
           <p>&copy; {new Date().getFullYear()} DataHub 数据工具库. 所有工具信息基于官方资料整理。</p>
           <p>高端数据产品风格持续迭代中</p>
         </div>

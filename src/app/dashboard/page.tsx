@@ -84,7 +84,7 @@ export default function DashboardPage() {
   const MotionDiv = motion.div;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
+    <div className="page-shell">
       <Navbar />
 
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -95,8 +95,8 @@ export default function DashboardPage() {
           className="mb-8"
         >
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-            <div className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-soft lg:p-10">
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3.5 py-1.5 text-sm font-medium text-blue-700">
+            <div className="panel-elevated p-8 lg:p-10">
+              <div className="brand-kicker mb-5">
                 <Sparkles className="h-4 w-4" />
                 Analytics Workspace
               </div>
@@ -112,29 +112,23 @@ export default function DashboardPage() {
                 把工具规模、分类分布、趋势变化和高评分样本集中到一页里，帮助你快速判断生态成熟度与关注重点。
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <Link
-                  href="/dashboard/comparison"
-                  className="inline-flex items-center justify-center rounded-2xl bg-slate-900 px-6 py-3.5 font-medium text-white transition-all hover:-translate-y-0.5 hover:bg-blue-600"
-                >
+                <Link href="/dashboard/comparison" className="btn-primary">
                   打开对比面板
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
-                <Link
-                  href="/dashboard/trends"
-                  className="inline-flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 py-3.5 font-medium text-slate-700 transition-all hover:border-slate-300 hover:bg-slate-50"
-                >
+                <Link href="/dashboard/trends" className="btn-secondary">
                   查看趋势分析
                 </Link>
               </div>
             </div>
-            <div className="rounded-[32px] border border-slate-200 bg-white p-6 shadow-soft">
+            <div className="panel-elevated p-6">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Overview</p>
               <div className="mt-5 space-y-4">
-                <div className="rounded-2xl bg-slate-50 p-4">
+                <div className="panel-muted p-4">
                   <p className="text-sm font-medium text-slate-900">当前覆盖</p>
                   <p className="mt-2 text-sm leading-6 text-slate-600">涵盖 {tools.length} 个工具，覆盖 BI、可视化和数据采集三类核心场景。</p>
                 </div>
-                <div className="rounded-2xl bg-slate-50 p-4">
+                <div className="panel-muted p-4">
                   <p className="text-sm font-medium text-slate-900">推荐顺序</p>
                   <p className="mt-2 text-sm leading-6 text-slate-600">先看总览和趋势，再进入对比页判断候选，最后回详情页核查边界。</p>
                 </div>
@@ -152,7 +146,7 @@ export default function DashboardPage() {
         >
           <Link
             href="/dashboard/trends"
-            className="group flex items-center gap-4 rounded-[28px] border border-slate-200 bg-white p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-card"
+            className="interactive-panel panel-elevated group flex items-center gap-4 p-5"
           >
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
               <TrendingUp className="h-6 w-6" />
@@ -165,7 +159,7 @@ export default function DashboardPage() {
 
           <Link
             href="/dashboard/comparison"
-            className="group flex items-center gap-4 rounded-[28px] border border-slate-200 bg-white p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:border-purple-200 hover:shadow-card"
+            className="interactive-panel panel-elevated group flex items-center gap-4 p-5"
           >
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
               <Award className="h-6 w-6" />
@@ -178,7 +172,7 @@ export default function DashboardPage() {
 
           <Link
             href="/tools"
-            className="group flex items-center gap-4 rounded-[28px] border border-slate-200 bg-white p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:border-emerald-200 hover:shadow-card"
+            className="interactive-panel panel-elevated group flex items-center gap-4 p-5"
           >
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
               <Zap className="h-6 w-6" />

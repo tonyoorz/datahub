@@ -108,7 +108,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50">
+    <div className="page-shell">
       <Navbar />
 
       <section className="relative overflow-hidden border-b border-slate-200/70 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.28),transparent_32%),linear-gradient(135deg,#020617_0%,#0f172a_45%,#1d4ed8_100%)]">
@@ -116,7 +116,7 @@ export default function Home() {
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/10 to-transparent" />
         <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,1.1fr)_420px] lg:px-8 lg:py-24">
           <div className="max-w-3xl">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-sm text-blue-50 backdrop-blur">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3.5 py-1.5 text-sm text-blue-50 backdrop-blur">
               <Sparkles className="h-4 w-4 text-blue-200" />
               公开口径 + 持续跟踪的数据工具选型平台
             </div>
@@ -127,10 +127,10 @@ export default function Home() {
             <p className="mt-5 max-w-2xl text-lg leading-8 text-blue-100/90 md:text-xl">
               首页先帮你锁定任务范围，再把常见比较路径、方法论入口和精选工具放到同一条决策链路里，减少来回跳转和无效筛选。
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/dashboard/comparison"
-                className="inline-flex items-center justify-center rounded-2xl bg-white px-7 py-3.5 font-semibold text-slate-900 shadow-lg shadow-blue-950/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-slate-100"
+                  className="inline-flex items-center justify-center rounded-2xl bg-white px-7 py-3.5 font-semibold text-slate-900 shadow-lg shadow-blue-950/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-slate-100"
               >
                 开始对比工具
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -227,7 +227,7 @@ export default function Home() {
               <Link
                 key={item.title}
                 href={item.href}
-                className="group rounded-3xl border border-slate-200 bg-gradient-to-b from-white to-slate-50 p-6 shadow-soft transition-all duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-medium"
+                className="interactive-panel panel-elevated group rounded-3xl bg-gradient-to-b from-white to-slate-50 p-6 duration-200"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="rounded-2xl bg-blue-50 p-3 text-blue-700 transition-colors group-hover:bg-blue-100">
@@ -255,7 +255,7 @@ export default function Home() {
             {trustHighlights.map((item) => (
               <div
                 key={item.title}
-                className="rounded-3xl border border-slate-200 bg-white p-6 shadow-soft transition-all duration-200 hover:border-slate-300 hover:shadow-card"
+                className="interactive-panel panel-elevated rounded-3xl p-6 duration-200"
               >
                 <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50">
                   <item.icon className="h-5 w-5 text-blue-700" />
@@ -283,7 +283,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-            <div className="rounded-3xl border border-slate-200 bg-gradient-to-b from-slate-50 to-white p-6 shadow-soft">
+            <div className="panel-elevated rounded-3xl bg-gradient-to-b from-slate-50 to-white p-6">
               <p className="mb-4 text-sm font-semibold text-slate-900">热门对比</p>
               <div className="space-y-3">
                 {compareLinks.map((item) => (
@@ -298,7 +298,7 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="rounded-3xl border border-slate-200 bg-gradient-to-b from-slate-50 to-white p-6 shadow-soft">
+            <div className="panel-elevated rounded-3xl bg-gradient-to-b from-slate-50 to-white p-6">
               <p className="mb-4 text-sm font-semibold text-slate-900">替代方案</p>
               <div className="space-y-3">
                 {alternativesLinks.map((item) => (
@@ -313,7 +313,7 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="rounded-3xl border border-slate-200 bg-gradient-to-b from-slate-50 to-white p-6 shadow-soft">
+            <div className="panel-elevated rounded-3xl bg-gradient-to-b from-slate-50 to-white p-6">
               <p className="mb-4 text-sm font-semibold text-slate-900">场景榜单</p>
               <div className="space-y-3">
                 {bestLinks.map((item) => (
