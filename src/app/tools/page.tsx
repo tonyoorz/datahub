@@ -22,6 +22,8 @@ function ToolsPageContent() {
     bi: tools.filter(t => t.category === 'bi').length,
     visualization: tools.filter(t => t.category === 'visualization').length,
     crawler: tools.filter(t => t.category === 'crawler').length,
+    'ai-analytics': tools.filter(t => t.category === 'ai-analytics').length,
+    etl: tools.filter(t => t.category === 'etl').length,
   }), []);
 
   const filteredTools = useMemo(() => {
@@ -324,6 +326,8 @@ function ListToolCard({ tool }: { tool: any }) {
     bi: { label: 'BI', color: 'bg-blue-50 text-blue-700 border border-blue-100' },
     visualization: { label: '可视化', color: 'bg-purple-50 text-purple-700 border border-purple-100' },
     crawler: { label: '数据采集', color: 'bg-emerald-50 text-emerald-700 border border-emerald-100' },
+    'ai-analytics': { label: 'AI 分析', color: 'bg-orange-50 text-orange-700 border border-orange-100' },
+    etl: { label: 'ETL', color: 'bg-teal-50 text-teal-700 border border-teal-100' },
   };
   const cat = categoryConfig[tool.category] || categoryConfig.bi;
 
@@ -335,7 +339,9 @@ function ListToolCard({ tool }: { tool: any }) {
       <div className={`w-14 h-14 rounded-xl flex items-center justify-center text-2xl shrink-0 ${
         tool.category === 'bi' ? 'bg-blue-50' :
         tool.category === 'visualization' ? 'bg-purple-50' :
-        'bg-emerald-50'
+        tool.category === 'crawler' ? 'bg-emerald-50' :
+        tool.category === 'ai-analytics' ? 'bg-orange-50' :
+        'bg-teal-50'
       }`}>
         {tool.icon}
       </div>

@@ -56,6 +56,8 @@ export default function ToolDetailPage({ params }: { params: { id: string } }) {
     bi: { name: 'BI 商业智能', color: 'text-blue-700', bg: 'bg-blue-50 border-blue-100' },
     visualization: { name: '数据可视化', color: 'text-purple-700', bg: 'bg-purple-50 border-purple-100' },
     crawler: { name: '数据采集', color: 'text-emerald-700', bg: 'bg-emerald-50 border-emerald-100' },
+    'ai-analytics': { name: 'AI 数据分析', color: 'text-orange-700', bg: 'bg-orange-50 border-orange-100' },
+    etl: { name: '数据集成/ETL', color: 'text-teal-700', bg: 'bg-teal-50 border-teal-100' },
   };
   const cat = categoryConfig[tool.category] || categoryConfig.bi;
   const communityScore = tool.githubStars ? Math.min(10, parseInt(tool.githubStars.replace(/[^0-9]/g, ''), 10) / 10000) : 6.5;

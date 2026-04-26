@@ -172,6 +172,8 @@ export default function Home() {
     { value: 'bi' as const, label: 'BI 商业智能', desc: '经营分析、报表、看板', icon: '📊' },
     { value: 'visualization' as const, label: '数据可视化', desc: '图表、前端展示、监控', icon: '🎨' },
     { value: 'crawler' as const, label: '数据采集', desc: '爬虫、自动化、抓取', icon: '🕷️' },
+    { value: 'ai-analytics' as const, label: 'AI 数据分析', desc: 'AI 辅助分析、自动建模', icon: '🤖' },
+    { value: 'etl' as const, label: '数据集成/ETL', desc: '数据管道、同步、转换', icon: '🔄' },
   ];
   const budgetOptions = [
     { value: 'free' as const, label: '免费优先', desc: '尽量用开源或免费方案' },
@@ -458,6 +460,14 @@ export default function Home() {
                 desc: '网页抓取、浏览器自动化', icon: '🕷️', meta: `${crawlerTools.length} 个候选`,
               },
               {
+                title: 'AI 辅助数据分析', href: '/tools?category=ai-analytics',
+                desc: '让 AI 帮你分析数据、建模型', icon: '🤖', meta: `${tools.filter(t => t.category === 'ai-analytics').length} 个候选`,
+              },
+              {
+                title: '数据集成与管道', href: '/tools?category=etl',
+                desc: '数据同步、转换、编排', icon: '🔄', meta: `${tools.filter(t => t.category === 'etl').length} 个候选`,
+              },
+              {
                 title: '我还不确定', href: '/dashboard/comparison',
                 desc: '先横向对比，再收敛方案', icon: '🧭', meta: '先做横向对比',
               },
@@ -496,10 +506,10 @@ export default function Home() {
               按领域浏览，快速看到各类工具的代表性能力。
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-5">
             <CategoryCard
               title="BI 商业智能"
-              description="Power BI、Tableau、Metabase 等数据分析平台"
+              description="Power BI、Tableau、Metabase 等"
               icon="📊"
               href="/tools?category=bi"
               count={biTools.length}
@@ -508,7 +518,7 @@ export default function Home() {
             />
             <CategoryCard
               title="数据可视化"
-              description="D3.js、ECharts、Chart.js 等 JavaScript 可视化库"
+              description="D3.js、ECharts、Chart.js 等"
               icon="🎨"
               href="/tools?category=visualization"
               count={vizTools.length}
@@ -517,12 +527,30 @@ export default function Home() {
             />
             <CategoryCard
               title="数据采集"
-              description="Scrapy、Playwright、Apify 等数据抓取工具"
+              description="Scrapy、Playwright、Apify 等"
               icon="🕷️"
               href="/tools?category=crawler"
               count={crawlerTools.length}
               gradient="bg-gradient-to-br from-emerald-600 to-emerald-700"
               index={2}
+            />
+            <CategoryCard
+              title="AI 数据分析"
+              description="DataRobot、H2O.ai、Julius AI 等"
+              icon="🤖"
+              href="/tools?category=ai-analytics"
+              count={tools.filter(t => t.category === 'ai-analytics').length}
+              gradient="bg-gradient-to-br from-orange-500 to-amber-600"
+              index={3}
+            />
+            <CategoryCard
+              title="数据集成/ETL"
+              description="dbt、Airbyte、Fivetran 等"
+              icon="🔄"
+              href="/tools?category=etl"
+              count={tools.filter(t => t.category === 'etl').length}
+              gradient="bg-gradient-to-br from-teal-500 to-cyan-600"
+              index={4}
             />
           </div>
         </div>

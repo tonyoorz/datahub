@@ -15,12 +15,16 @@ const categoryConfig = {
   bi: { label: 'BI', color: 'bg-blue-50 text-blue-700 border border-blue-100' },
   visualization: { label: '可视化', color: 'bg-purple-50 text-purple-700 border border-purple-100' },
   crawler: { label: '数据采集', color: 'bg-emerald-50 text-emerald-700 border border-emerald-100' },
+  'ai-analytics': { label: 'AI 分析', color: 'bg-orange-50 text-orange-700 border border-orange-100' },
+  etl: { label: 'ETL', color: 'bg-teal-50 text-teal-700 border border-teal-100' },
 };
 
 const categoryGradients = {
   bi: 'from-blue-500 to-blue-600',
   visualization: 'from-purple-500 to-purple-600',
   crawler: 'from-emerald-500 to-emerald-600',
+  'ai-analytics': 'from-orange-500 to-amber-500',
+  etl: 'from-teal-500 to-cyan-500',
 };
 
 export default function ToolCard({ tool, index = 0 }: ToolCardProps) {
@@ -60,8 +64,12 @@ export default function ToolCard({ tool, index = 0 }: ToolCardProps) {
                     ? 'bg-blue-50'
                     : tool.category === 'visualization'
                     ? 'bg-purple-50'
-                    : 'bg-emerald-50'
-                }`}
+                    : tool.category === 'crawler'
+                    ? 'bg-emerald-50'
+                    : tool.category === 'ai-analytics'
+                    ? 'bg-orange-50'
+                    : 'bg-teal-50'
+                }`}}
               >
                 {tool.icon}
               </div>
