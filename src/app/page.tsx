@@ -582,7 +582,6 @@ export default function Home() {
             {/* 占位，让最后一张卡片靠左 */}
             <div className="hidden lg:block" />
           </div>
-          </div>
         </div>
       </section>
 

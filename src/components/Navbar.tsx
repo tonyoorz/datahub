@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { Database, Menu, X, BarChart3, Sparkles } from 'lucide-react';
+import { Database, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import ThemeToggle from './ThemeToggle';
 import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
