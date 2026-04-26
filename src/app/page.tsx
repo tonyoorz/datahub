@@ -101,6 +101,15 @@ function RadarChart({ tools: chartTools }: { tools: { name: string; scores: numb
           strokeWidth="0.8"
         />
       ))}
+      {/* Grid score labels */}
+      {[2, 4, 6, 8, 10].map(v => {
+        const p = getPoint(0, v);
+        return (
+          <text key={v} x={p.x + 8} y={p.y + 3} className="text-[8px] fill-slate-300">
+            {v}
+          </text>
+        );
+      })}
       {/* Axes */}
       {Array.from({ length: n }, (_, i) => {
         const p = getPoint(i, 10);
@@ -110,28 +119,46 @@ function RadarChart({ tools: chartTools }: { tools: { name: string; scores: numb
       })}
       {/* Labels */}
       {labels.map((label, i) => {
-        const p = getPoint(i, 12);
+        const p = getPoint(i, 12.5);
         return (
           <text key={label} x={p.x} y={p.y} textAnchor="middle" dominantBaseline="middle"
-            className="text-[10px] fill-slate-500 font-medium">
+            className="text-[10px] fill-slate-600 font-semibold">
             {label}
           </text>
         );
       })}
       {/* Tool polygons */}
       {chartTools.map((tool, ti) => (
-        <polygon
-          key={tool.name}
-          points={tool.scores.map((s, i) => {
+        <g key={tool.name}>
+          <polygon
+            points={tool.scores.map((s, i) => {
+              const p = getPoint(i, s);
+              return `${p.x},${p.y}`;
+            }).join(' ')}
+            fill={colors[ti % 3]}
+            fillOpacity={0.12}
+            stroke={colors[ti % 3]}
+            strokeWidth="2"
+          />
+          {/* Score dots */}
+          {tool.scores.map((s, i) => {
             const p = getPoint(i, s);
-            return `${p.x},${p.y}`;
-          }).join(' ')}
-          fill={colors[ti % 3]}
-          fillOpacity={0.15}
-          stroke={colors[ti % 3]}
-          strokeWidth="2"
-        />
+            return (
+              <circle key={i} cx={p.x} cy={p.y} r="3" fill={colors[ti % 3]} stroke="white" strokeWidth="1" />
+            );
+          })}
+        </g>
       ))}
+      {/* Legend */}
+      {chartTools.map((tool, ti) => {
+        const y = 280 - (chartTools.length - 1 - ti) * 14;
+        return (
+          <g key={tool.name}>
+            <rect x={120} y={y - 4} width={10} height={10} rx={2} fill={colors[ti % 3]} />
+            <text x={134} y={y + 4} className="text-[9px] fill-slate-600">{tool.name}</text>
+          </g>
+        );
+      })}
     </svg>
   );
 }
@@ -211,8 +238,13 @@ export default function Home() {
                 开始推荐
                 <ArrowRight className="h-5 w-5" />
               </button>
-              <p className="mt-6 text-sm text-blue-200/50">
-                已收录 {tools.length}+ 工具 · 5 维统一评分 · 数据来源可追溯
+              <div className="mt-8 flex items-center justify-center gap-6 text-sm text-blue-200/50">
+                <span className="flex items-center gap-1.5"><ShieldCheck className="h-3.5 w-3.5" />评测标准公开</span>
+                <span className="flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5" />持续更新</span>
+                <span className="flex items-center gap-1.5"><BookCheck className="h-3.5 w-3.5" />数据可追溯</span>
+              </div>
+              <p className="mt-3 text-xs text-blue-200/40">
+                已收录 {tools.length}+ 工具 · 5 大分类 · 5 维统一评分
               </p>
             </div>
           )}
@@ -229,7 +261,7 @@ export default function Home() {
               <h2 className="mb-8 text-center text-3xl font-bold text-white">
                 你要解决什么问题？
               </h2>
-              <div className="mx-auto grid max-w-lg gap-4">
+              <div className="mx-auto grid max-w-2xl grid-cols-2 gap-3 sm:gap-4">
                 {categoryOptions.map(opt => (
                   <button
                     key={opt.value}
@@ -237,16 +269,21 @@ export default function Home() {
                       setAnswer(a => ({ ...a, category: opt.value }));
                       setStep(2);
                     }}
-                    className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/5 px-6 py-5 text-left transition-all hover:border-blue-400/40 hover:bg-white/10"
+                    className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-5 py-4 text-left transition-all hover:border-blue-400/40 hover:bg-white/10"
                   >
-                    <span className="text-3xl">{opt.icon}</span>
-                    <div>
-                      <p className="text-lg font-semibold text-white">{opt.label}</p>
-                      <p className="text-sm text-blue-100/60">{opt.desc}</p>
+                    <span className="text-2xl">{opt.icon}</span>
+                    <div className="min-w-0">
+                      <p className="text-base font-semibold text-white">{opt.label}</p>
+                      <p className="text-xs text-blue-100/60 mt-0.5">{opt.desc}</p>
                     </div>
-                    <ChevronRight className="ml-auto h-5 w-5 text-white/30 transition-transform group-hover:translate-x-1 group-hover:text-white/60" />
+                    <ChevronRight className="ml-auto h-4 w-4 shrink-0 text-white/30 transition-transform group-hover:translate-x-1 group-hover:text-white/60" />
                   </button>
                 ))}
+              </div>
+              <div className="mt-5 text-center">
+                <Link href="/tools" className="text-sm text-blue-200/50 hover:text-blue-100 transition-colors">
+                  跳过，直接浏览全部工具 →
+                </Link>
               </div>
             </div>
           )}
@@ -357,22 +394,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 信任信号 */}
-      <section className="border-b border-slate-200/70 bg-white px-4 py-6 sm:px-6">
-        <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-center gap-x-8 gap-y-3">
-          {[
-            { icon: ShieldCheck, title: '评测标准公开' },
-            { icon: Clock3, title: '更新时间可见' },
-            { icon: BookCheck, title: '技术语境优先' },
-          ].map((item) => (
-            <div key={item.title} className="flex items-center gap-2">
-              <item.icon className="h-4 w-4 shrink-0 text-blue-600" />
-              <span className="text-sm text-slate-600">{item.title}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* ═══════ 交互式对比雷达图 ═══════ */}
       <section className="bg-white px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
@@ -393,34 +414,39 @@ export default function Home() {
               {radarTools.map((tool, i) => {
                 const toolData = tools.find(t => t.name === tool.name);
                 if (!toolData) return null;
-                const colors = ['text-blue-600 bg-blue-50 border-blue-100', 'text-purple-600 bg-purple-50 border-purple-100', 'text-emerald-600 bg-emerald-50 border-emerald-100'];
+                const colors = ['bg-blue-500', 'bg-purple-500', 'bg-emerald-500'];
+                const badges = ['text-blue-700 bg-blue-50 border-blue-100', 'text-purple-700 bg-purple-50 border-purple-100', 'text-emerald-700 bg-emerald-50 border-emerald-100'];
                 return (
                   <Link
                     key={tool.name}
                     href={`/tools/${toolData.id}`}
-                    className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md"
+                    className="group flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-4 transition-all hover:border-blue-200 hover:shadow-md"
                   >
-                    <span className={`text-2xl flex-shrink-0`}>{toolData.icon}</span>
+                    <span className="text-2xl flex-shrink-0 mt-0.5">{toolData.icon}</span>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 mb-3">
                         <span className="font-semibold text-slate-900">{tool.name}</span>
-                        <span className={`rounded-full border px-2 py-0.5 text-xs font-medium ${colors[i]}`}>
+                        <span className={`rounded-full border px-2 py-0.5 text-xs font-medium ${badges[i]}`}>
                           #{i + 1}
                         </span>
-                        <div className="flex items-center gap-0.5">
+                        <div className="flex items-center gap-0.5 ml-auto">
                           <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
                           <span className="text-xs text-slate-500">{toolData.rating}</span>
                         </div>
                       </div>
-                      <div className="mt-2 flex gap-2">
+                      <div className="space-y-2">
                         {tool.scores.map((s, si) => (
-                          <span key={si} className="text-xs text-slate-500">
-                            {['功能', '性能', '易用', '生态', '性价比'][si]}:{s.toFixed(1)}
-                          </span>
+                          <div key={si} className="flex items-center gap-2">
+                            <span className="text-xs text-slate-400 w-10 shrink-0">{['功能', '性能', '易用', '生态', '性价比'][si]}</span>
+                            <div className="flex-1 h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                              <div className={`h-full rounded-full ${colors[i]} transition-all`} style={{ width: `${s * 10}%` }} />
+                            </div>
+                            <span className="text-xs text-slate-500 w-6 shrink-0 text-right">{s.toFixed(1)}</span>
+                          </div>
                         ))}
                       </div>
                     </div>
-                    <ChevronRight className="h-5 w-5 text-slate-300 transition-colors group-hover:text-blue-500" />
+                    <ChevronRight className="h-5 w-5 text-slate-300 transition-colors group-hover:text-blue-500 mt-2" />
                   </Link>
                 );
               })}
@@ -445,50 +471,43 @@ export default function Home() {
               先锁定场景，再进入对比与细节评估。
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                title: '我要做 BI 分析', href: '/tools?category=bi',
-                desc: '经营分析、报表体系和业务看板', icon: '📊', meta: `${biTools.length} 个候选`,
+                title: 'BI 分析', href: '/tools?category=bi',
+                desc: '报表、看板', icon: '📊', meta: `${biTools.length} 个`,
               },
               {
-                title: '我要做数据可视化', href: '/tools?category=visualization',
-                desc: '前端图表、交互可视化和监控', icon: '🎨', meta: `${vizTools.length} 个候选`,
+                title: '数据可视化', href: '/tools?category=visualization',
+                desc: '图表、前端', icon: '🎨', meta: `${vizTools.length} 个`,
               },
               {
-                title: '我要做数据采集', href: '/tools?category=crawler',
-                desc: '网页抓取、浏览器自动化', icon: '🕷️', meta: `${crawlerTools.length} 个候选`,
+                title: '数据采集', href: '/tools?category=crawler',
+                desc: '爬虫、自动化', icon: '🕷️', meta: `${crawlerTools.length} 个`,
               },
               {
-                title: 'AI 辅助数据分析', href: '/tools?category=ai-analytics',
-                desc: '让 AI 帮你分析数据、建模型', icon: '🤖', meta: `${tools.filter(t => t.category === 'ai-analytics').length} 个候选`,
+                title: 'AI 分析', href: '/tools?category=ai-analytics',
+                desc: 'AI 建模', icon: '🤖', meta: `${tools.filter(t => t.category === 'ai-analytics').length} 个`,
               },
               {
-                title: '数据集成与管道', href: '/tools?category=etl',
-                desc: '数据同步、转换、编排', icon: '🔄', meta: `${tools.filter(t => t.category === 'etl').length} 个候选`,
-              },
-              {
-                title: '我还不确定', href: '/dashboard/comparison',
-                desc: '先横向对比，再收敛方案', icon: '🧭', meta: '先做横向对比',
+                title: '数据集成/ETL', href: '/tools?category=etl',
+                desc: '管道、同步', icon: '🔄', meta: `${tools.filter(t => t.category === 'etl').length} 个`,
               },
             ].map((item) => (
               <Link
                 key={item.title}
                 href={item.href}
-                className="interactive-panel panel-elevated group rounded-3xl bg-gradient-to-b from-white to-slate-50 p-6 duration-200"
+                className="interactive-panel panel-elevated group flex items-center gap-4 rounded-2xl bg-gradient-to-b from-white to-slate-50 p-5 duration-200"
               >
-                <div className="flex items-start justify-between gap-3">
-                  <span className="text-2xl">{item.icon}</span>
-                  <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-500">
-                    {item.meta}
-                  </span>
+                <span className="text-2xl">{item.icon}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-slate-900">{item.title}</p>
+                  <p className="text-sm text-slate-500">{item.desc}</p>
                 </div>
-                <p className="mt-5 text-lg font-semibold text-slate-900">{item.title}</p>
-                <p className="mt-2 text-sm text-slate-600">{item.desc}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-blue-700">
-                  进入
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                <span className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-600">
+                  {item.meta}
                 </span>
+                <ArrowRight className="h-4 w-4 text-slate-400 transition-transform group-hover:translate-x-1" />
               </Link>
             ))}
           </div>
@@ -506,7 +525,7 @@ export default function Home() {
               按领域浏览，快速看到各类工具的代表性能力。
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-5">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             <CategoryCard
               title="BI 商业智能"
               description="Power BI、Tableau、Metabase 等"
@@ -552,6 +571,9 @@ export default function Home() {
               gradient="bg-gradient-to-br from-teal-500 to-cyan-600"
               index={4}
             />
+            {/* 占位，让最后一张卡片靠左 */}
+            <div className="hidden lg:block" />
+          </div>
           </div>
         </div>
       </section>
