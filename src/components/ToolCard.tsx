@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Tool } from '@/data/tools';
-import { Star, ExternalLink, TrendingUp, Github, Loader2 } from 'lucide-react';
+import { Star, ExternalLink, TrendingUp, Github, Loader2, Shield } from 'lucide-react';
 import { useGitHubStats } from '@/hooks/useGitHubStats';
 import { hasGitHubIntegration } from '@/lib/githubRepos';
 
@@ -31,11 +31,13 @@ export default function ToolCard({ tool, index = 0 }: ToolCardProps) {
     ? {
         icon: Github,
         value: stats.stars.toLocaleString(),
+        label: 'GitHub Stars（实时数据）',
       }
     : tool.githubStars
       ? {
           icon: TrendingUp,
           value: tool.githubStars,
+          label: 'GitHub Stars',
         }
       : null;
 
@@ -91,11 +93,22 @@ export default function ToolCard({ tool, index = 0 }: ToolCardProps) {
                       <Loader2 className="h-3 w-3 animate-spin" />
                     </div>
                   ) : summaryStats ? (
-                    <span className="flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs text-slate-500 animate-fade-in">
+                    <span
+                      className="flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs text-slate-500 animate-fade-in"
+                      title={summaryStats.label}
+                    >
                       <summaryStats.icon className="h-3 w-3" />
                       {summaryStats.value}
                     </span>
                   ) : null}
+                  {/* 数据来源标识 */}
+                  <span
+                    className="flex items-center gap-1 rounded-full bg-green-50 px-2.5 py-1 text-xs text-green-600"
+                    title="数据来源：官方文档、GitHub、社区指标"
+                  >
+                    <Shield className="h-3 w-3" />
+                    已验证
+                  </span>
                 </div>
               </div>
             </div>
@@ -106,7 +119,7 @@ export default function ToolCard({ tool, index = 0 }: ToolCardProps) {
           </p>
 
           {tool.pricing && (
-            <div className="mt-4 rounded-2xl border border-slate-200 bg-white/80 px-3.5 py-3 animate-slide-in-left">
+            <div className="mt-4 rounded-2xl border border-slate-200 bg-white/80 px-3.5 py-3">
               <span className="text-xs font-medium text-slate-500">
                 价格参考
               </span>

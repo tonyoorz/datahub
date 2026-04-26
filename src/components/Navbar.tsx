@@ -22,10 +22,9 @@ export default function Navbar() {
   const navItems = [
     { href: '/', label: '首页' },
     { href: '/tools', label: '工具库' },
+    { href: '/guides', label: '深度指南' },
     { href: '/methodology', label: '评测方法' },
-    { href: '/tools?category=bi', label: 'BI 工具' },
-    { href: '/tools?category=visualization', label: '可视化' },
-    { href: '/tools?category=crawler', label: '数据采集' },
+    { href: '/quiz', label: '决策助手' },
     { href: '/dashboard', label: '仪表板' },
   ];
 
@@ -63,8 +62,8 @@ export default function Navbar() {
               <span className="bg-gradient-to-r from-slate-950 to-slate-600 bg-clip-text text-xl font-bold text-transparent">
                 DataHub
               </span>
-              <p className="hidden text-[11px] font-medium uppercase tracking-[0.18em] text-slate-400 sm:block">
-                Data Tool Intelligence
+              <p className="hidden text-[11px] font-medium text-slate-400 sm:block">
+                数据工具选型平台
               </p>
             </div>
           </Link>
@@ -99,22 +98,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Dashboard Button */}
-          <MotionDiv
-            className="hidden md:block"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            <Link
-              href="/dashboard"
-              className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-lg"
-            >
-              <Sparkles className="h-3.5 w-3.5" />
-              <BarChart3 className="h-4 w-4" />
-              仪表板
-            </Link>
-          </MotionDiv>
+
 
           {/* Mobile Menu Button */}
           <MotionButton
@@ -161,8 +145,8 @@ export default function Navbar() {
             >
               <div className="panel-elevated mb-4 rounded-3xl p-3">
                 <div className="mb-2 border-b border-slate-100 px-2 pb-3">
-                  <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-400">
-                    Navigation
+                  <p className="text-xs font-medium text-slate-400">
+                    导航
                   </p>
                 </div>
                 {navItems.map((item, index) => (

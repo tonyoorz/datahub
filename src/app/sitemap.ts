@@ -103,5 +103,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  return [...staticPages, ...toolPages, ...alternativesPages, ...bestPages, ...comparePages];
+  const guidesPages: MetadataRoute.Sitemap = [
+    { url: `${siteUrl}/guides`, lastModified: now, changeFrequency: 'weekly', priority: 0.75 },
+    { url: `${siteUrl}/guides/bi-guide`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${siteUrl}/guides/viz-comparison`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${siteUrl}/guides/crawler-guide-2026`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${siteUrl}/guides/open-source-vs-commercial`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${siteUrl}/guides/build-data-platform`, lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${siteUrl}/quiz`, lastModified: now, changeFrequency: 'monthly', priority: 0.65 },
+  ];
+
+  return [...staticPages, ...toolPages, ...alternativesPages, ...bestPages, ...guidesPages];
 }
