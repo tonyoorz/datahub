@@ -122,6 +122,51 @@ export default function ToolDetailPage({ params }: { params: { id: string } }) {
           <span className="text-sm font-medium">返回工具库</span>
         </Link>
 
+        {/* 产品视觉头图 */}
+        <div className={`mb-6 rounded-[32px] overflow-hidden ${
+          tool.category === 'bi' ? 'bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800' :
+          tool.category === 'visualization' ? 'bg-gradient-to-br from-purple-600 via-purple-700 to-fuchsia-800' :
+          tool.category === 'crawler' ? 'bg-gradient-to-br from-emerald-600 via-teal-700 to-cyan-800' :
+          tool.category === 'ai-analytics' ? 'bg-gradient-to-br from-orange-500 via-amber-600 to-yellow-700' :
+          'bg-gradient-to-br from-teal-500 via-cyan-600 to-blue-700'
+        } p-8 lg:p-12 relative`}>
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:24px_24px] opacity-30" />
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3" />
+          <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/3 rounded-full translate-y-1/3 -translate-x-1/4" />
+          <div className="relative z-10 flex items-center gap-6">
+            <div className="text-6xl lg:text-7xl">{tool.icon}</div>
+            <div>
+              <h1 className="text-3xl lg:text-4xl font-bold text-white">{tool.name}</h1>
+              <p className="mt-2 text-white/70 text-lg">{tool.description.slice(0, 80)}...</p>
+              <div className="mt-4 flex items-center gap-3">
+                <span className={`rounded-full px-3 py-1 text-sm font-medium ${
+                  tool.category === 'bi' ? 'bg-blue-400/20 text-blue-100' :
+                  tool.category === 'visualization' ? 'bg-purple-400/20 text-purple-100' :
+                  tool.category === 'crawler' ? 'bg-emerald-400/20 text-emerald-100' :
+                  tool.category === 'ai-analytics' ? 'bg-orange-400/20 text-orange-100' :
+                  'bg-teal-400/20 text-teal-100'
+                }`}>{cat.name}</span>
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className={`h-4 w-4 ${i < Math.floor(tool.rating) ? 'text-amber-300 fill-amber-300' : 'text-white/20 fill-white/20'}`} />
+                  ))}
+                  <span className="ml-1 text-white/80 font-medium">{tool.rating}</span>
+                </div>
+                {tool.githubStars && (
+                  <span className="flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-sm text-white/70">
+                    <Github className="h-3.5 w-3.5" />
+                    {tool.githubStars}
+                  </span>
+                )}
+                <a href={tool.website} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium text-white backdrop-blur hover:bg-white/25 transition-colors">
+                  访问官网 <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="mb-8 grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_320px]">
           <div className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-soft lg:p-10">
             <div className="mb-6 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">

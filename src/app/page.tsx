@@ -215,6 +215,14 @@ export default function Home() {
       {/* ═══════ Hero：交互式推荐 ═══════ */}
       <section className="relative overflow-hidden border-b border-slate-200/70 bg-[radial-gradient(circle_at_top_right,rgba(59,130,246,0.28),transparent_32%),linear-gradient(135deg,#020617_0%,#0f172a_45%,#1d4ed8_100%)]">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:32px_32px] opacity-20" />
+        {/* 浮动几何装饰 */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[15%] left-[8%] w-20 h-20 rounded-2xl border border-blue-400/20 bg-blue-500/5 animate-float-slow" />
+          <div className="absolute top-[60%] right-[12%] w-16 h-16 rounded-full border border-purple-400/20 bg-purple-500/5 animate-float-reverse" />
+          <div className="absolute bottom-[20%] left-[20%] w-12 h-12 rotate-45 border border-emerald-400/20 bg-emerald-500/5 animate-float-slow" style={{animationDelay: '2s'}} />
+          <div className="absolute top-[30%] right-[30%] w-8 h-8 rounded-lg border border-amber-400/15 bg-amber-500/5 animate-float-reverse" style={{animationDelay: '3s'}} />
+          <div className="absolute top-[10%] right-[5%] w-24 h-24 rounded-3xl border border-blue-300/10 bg-blue-400/3 animate-gradient-shift" />
+        </div>
 
         <div className="relative mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
           {/* 步骤 0：开场 */}

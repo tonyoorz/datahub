@@ -22,6 +22,7 @@ export default function Navbar() {
   const navItems = [
     { href: '/', label: '首页' },
     { href: '/tools', label: '工具库' },
+    { href: '/compare', label: '对比' },
     { href: '/guides', label: '深度指南' },
     { href: '/methodology', label: '评测方法' },
     { href: '/quiz', label: '决策助手' },
@@ -98,7 +99,9 @@ export default function Navbar() {
             ))}
           </div>
 
-
+          <div className="hidden md:flex items-center">
+            <ThemeToggle />
+          </div>
 
           {/* Mobile Menu Button */}
           <MotionButton
