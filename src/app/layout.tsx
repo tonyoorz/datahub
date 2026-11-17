@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import AiAssistant from "@/components/AiAssistant";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
@@ -46,6 +47,7 @@ export default function RootLayout({
     <html lang="zh-CN">
       <body className="antialiased">
         {children}
+        <AiAssistant />
       </body>
     </html>
   );
